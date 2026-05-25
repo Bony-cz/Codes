@@ -1,0 +1,269 @@
+<!-- code-view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Viewer-1</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#595a5a,#424242,#949494);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:30px;
+      overflow-x:hidden;
+      color:white;
+    }
+
+    .code-container{
+      width:100%;
+      max-width:1100px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 25px;
+      background:rgba(255,255,255,0.05);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .dots{
+      display:flex;
+      gap:10px;
+    }
+
+    .dot{
+      width:13px;
+      height:13px;
+      border-radius:50%;
+    }
+
+    .red{
+      background:#ff5f57;
+    }
+
+    .yellow{
+      background:#febc2e;
+    }
+
+    .green{
+      background:#28c840;
+    }
+
+    .title{
+      font-size:0.95rem;
+      color:#cbd5e1;
+    }
+
+
+    .code-area{
+      padding:30px;
+      overflow:auto;
+    }
+
+    pre{
+      white-space:pre-wrap;
+      word-break:break-word;
+      line-height:1.8;
+      color:#f9fcff;
+      font-size:0.95rem;
+    }
+
+    .back-btn{
+      position:fixed;
+      top:25px;
+      left:25px;
+      text-decoration:none;
+      color:white;
+      padding:12px 22px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      transition:0.3s ease;
+    }
+
+    .back-btn:hover{
+      background:rgba(255,255,255,0.15);
+      transform:translateY(-2px);
+    }
+
+    @media(max-width:768px){
+
+      body{
+        padding:15px;
+      }
+
+      .topbar{
+        flex-direction:column;
+        gap:15px;
+        align-items:flex-start;
+      }
+
+      .code-area{
+        padding:20px;
+      }
+
+      pre{
+        font-size:0.85rem;
+      }
+
+      .back-btn{
+        top:15px;
+        left:15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="codes.html" class="back-btn">
+    ← Back
+  </a>
+
+  <div class="code-container">
+
+    <div class="topbar">
+
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+
+      <div class="title">
+        main.cpp
+      </div>
+
+    </div>
+
+    <div class="code-area">
+
+<pre id="code1">
+#include &lt;iostream&gt;
+#include &lt;unistd.h&gt;
+using namespace std;
+
+void logo() {
+    cout&lt;&lt;"========================================" &lt;&lt;endl;
+    cout&lt;&lt;"=                                      =" &lt;&lt;endl;
+    cout&lt;&lt;"=   BBBB   N   N  Y   Y   OOO   SSSS   =" &lt;&lt;endl;
+    cout&lt;&lt;"=   B   B  NN  N   Y Y   O   O  S      =" &lt;&lt;endl;
+    cout&lt;&lt;"=   BBBB   N N N    Y    O   O   SSS   =" &lt;&lt;endl;
+    cout&lt;&lt;"=   B   B  N  NN    Y    O   O      S  =" &lt;&lt;endl;
+    cout&lt;&lt;"=   BBBB   N   N    Y     OOO   SSSS   =" &lt;&lt;endl;
+    cout&lt;&lt;"=                                      =" &lt;&lt;endl;
+    cout&lt;&lt;"========================================" &lt;&lt;endl;
+}
+
+void start() {
+    cout&lt;&lt;"Press Enter...";
+    cin.get();
+    sleep(1);
+    cout&lt;&lt;"Welcome to BonyOS" &lt;&lt;endl;
+    logo();
+    cout&lt;&lt;""&lt;&lt;endl;
+    cout&lt;&lt;""&lt;&lt;endl;
+}
+
+int main()
+{
+    start();
+    string name;
+    cout&lt;&lt;"Insert name: ";
+    cin&gt;&gt;name;
+    cout&lt;&lt;"" &lt;&lt;endl;
+
+    bool status = true;
+    string command;
+
+    while (status) {
+
+        cout&lt;&lt;name &lt;&lt;"/pc/-$";
+        cin&gt;&gt;command;
+
+        if (command == "help") {
+            cout&lt;&lt;"help" &lt;&lt;endl;
+            cout&lt;&lt;"creator" &lt;&lt;endl;
+            cout&lt;&lt;"echo" &lt;&lt;endl;
+            cout&lt;&lt;"neofetch" &lt;&lt;endl;
+            cout&lt;&lt;"reboot" &lt;&lt;endl;
+        }
+
+        else if (command == "creator") {
+            cout&lt;&lt;"Bony__88" &lt;&lt;endl;
+        }
+
+        else if (command == "neofetch") {
+            logo();
+            cout&lt;&lt;"          CPU:Intel I5-14400f" &lt;&lt;endl;
+            cout&lt;&lt;"          GPU:Nvidia Rtx-5060" &lt;&lt;endl;
+            cout&lt;&lt;"                  SSD:1t" &lt;&lt;endl;
+            cout&lt;&lt;"                 Ram:32GB" &lt;&lt;endl;
+        }
+
+        else if (command == "reboot") {
+            sleep(0.5);
+            start();
+        }
+
+        else if (command == "echo") {
+            string echo;
+
+            cout&lt;&lt;"&gt;";
+            cin&gt;&gt;echo;
+
+            cout&lt;&lt;echo &lt;&lt;endl;
+        }
+
+        else {
+            cout&lt;&lt;command &lt;&lt;" not recognised" &lt;&lt;endl;
+        }
+    }
+
+    return 0;
+}
+</pre>
+
+    </div>
+
+  </div>
+
+  <script>
+    function copyCode(){
+      const code = document.getElementById("code").innerText;
+
+      navigator.clipboard.writeText(code);
+
+      const button = document.querySelector(".copy-btn");
+
+      button.innerText = "Copied!";
+
+      setTimeout(() => {
+        button.innerText = "Copy Code";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>

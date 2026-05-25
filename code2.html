@@ -1,0 +1,416 @@
+<!-- code-view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Viewer-1</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#595a5a,#424242,#949494);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:30px;
+      overflow-x:hidden;
+      color:white;
+    }
+
+    .code-container{
+      width:100%;
+      max-width:1100px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 25px;
+      background:rgba(255,255,255,0.05);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .dots{
+      display:flex;
+      gap:10px;
+    }
+
+    .dot{
+      width:13px;
+      height:13px;
+      border-radius:50%;
+    }
+
+    .red{
+      background:#ff5f57;
+    }
+
+    .yellow{
+      background:#febc2e;
+    }
+
+    .green{
+      background:#28c840;
+    }
+
+    .title{
+      font-size:0.95rem;
+      color:#cbd5e1;
+    }
+
+
+    .code-area{
+      padding:30px;
+      overflow:auto;
+    }
+
+    pre{
+      white-space:pre-wrap;
+      word-break:break-word;
+      line-height:1.8;
+      color:#f9fcff;
+      font-size:0.95rem;
+    }
+
+    .back-btn{
+      position:fixed;
+      top:25px;
+      left:25px;
+      text-decoration:none;
+      color:white;
+      padding:12px 22px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      transition:0.3s ease;
+    }
+
+    .back-btn:hover{
+      background:rgba(255,255,255,0.15);
+      transform:translateY(-2px);
+    }
+
+    @media(max-width:768px){
+
+      body{
+        padding:15px;
+      }
+
+      .topbar{
+        flex-direction:column;
+        gap:15px;
+        align-items:flex-start;
+      }
+
+      .code-area{
+        padding:20px;
+      }
+
+      pre{
+        font-size:0.85rem;
+      }
+
+      .back-btn{
+        top:15px;
+        left:15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="codes.html" class="back-btn">
+    ← Back
+  </a>
+
+  <div class="code-container">
+
+    <div class="topbar">
+
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+
+      <div class="title">
+        main.cpp
+      </div>
+
+    </div>
+
+    <div class="code-area">
+
+<pre id="code1">
+import tkinter as tk
+from tkinter import PhotoImage
+import datetime
+
+root = tk.Tk()
+root.title("BonyOS Terminal")
+root.geometry("900x500")
+root.configure(bg="#1e1e1e")
+
+
+topbar = tk.Frame(root, bg="#2b2b2b", height=30)
+topbar.pack(fill="x")
+
+
+title = tk.Label(
+    topbar,
+    text="BonyOS Terminal",
+    bg="#2b2b2b",
+    fg="white",
+    font=("Helvetica", 11)
+)
+title.pack(side="left", padx=15)
+
+
+clock = tk.Label(
+    topbar,
+    bg="#2b2b2b",
+    fg="white",
+    font=("Helvetica", 10)
+)
+clock.pack(side="right", padx=10)
+
+def update_clock():
+    current = datetime.datetime.now().strftime("%H:%M:%S")
+    clock.config(text=current)
+    root.after(1000, update_clock)
+
+update_clock()
+
+
+output = tk.Text(
+    root,
+    bg="#4a4a4a",
+    fg="#ffffff",
+    insertbackground="#ffffff",
+    font=("Courier New", 13),
+    bd=0
+)
+output.pack(fill="both", expand=True, padx=10, pady=(10,0))
+
+
+bottom = tk.Frame(root, bg="#1e1e1e")
+bottom.pack(fill="x", padx=10, pady=10)
+
+prompt = tk.Label(
+    bottom,
+    text="bony@macos:~$",
+    bg="#424242",
+    fg="#ffffff",
+    font=("Courier New", 13)
+)
+prompt.pack(side="left")
+
+entry = tk.Entry(
+    bottom,
+    bg="#1e1e1e",
+    fg="#ffffff",
+    insertbackground="#ffffff",
+    font=("Courier New", 13),
+    bd=0
+)
+entry.pack(side="left", fill="x", expand=True)
+
+
+def run_command(event=None):
+    command = entry.get()
+
+    output.insert(tk.END, f"\nbony@macos:~$ {command}\n")
+
+    if command == "help":
+        output.insert(tk.END,
+        """
+Available commands:
+help
+clear
+neofetch
+date
+exit
+echo
+--update
+dev
+reboot
+release
+ls
+pwd
+install...
+        """)
+
+
+    elif command == "date":
+        output.insert(tk.END, str(datetime.datetime.now()) + "\n")
+
+    elif command.startswith("echo "):
+        text = command[5:]
+        output.insert(tk.END, text + "\n")
+
+    elif command == "neofetch":
+        output.insert(tk.END,
+r"""
+        ==========================
+       ===========-----============
+      ============  ==  ============
+     =============  ====  ===========
+    ==============  ====  ============
+   ===============  ==  ===============
+  ================  =  =================
+ =================  ==  =================
+==================  =====  ===============
+ =================  ======  =============
+  ================  ======  ============
+   ===============  ======  ===========
+    ==============  =====  ===========
+     =============  ===  ============
+       ===========------============
+        ===========================
+
+    
+BonyOS 0.1
+Kernel: Python 3
+Shell: Tkinter Terminal
+Theme: BonyOS dark
+CPU: Apple M2 chip
+RAM: 16GB
+""")
+    elif command == "--update":
+        output.insert(tk.END,
+r"""
+Current version-BonyOS-0.1
+
+Not any available update
+""")
+    elif command == "dev":
+        output.insert(tk.END,
+r"""
+Main Dev: Bony__88
+(only dev)
+""")
+
+    elif command.startswith("install "):
+        pkg = command[8:]
+
+        output.insert(tk.END, f"Installing {pkg}...\n")
+        root.update()
+
+        import time
+        time.sleep(1)
+
+        output.insert(tk.END, "Downloading packages...\n")
+        root.update()
+        time.sleep(1)
+
+        output.insert(tk.END, f"{pkg} installed successfully.\n")
+
+    elif command == "release":
+        output.insert(tk.END,
+r"""
+Release of terminal: 11:59/8.5/2026
+""")
+    elif command == "ls":
+        output.insert(tk.END,
+    r"""
+    Desktop
+    Documents
+    Downloads
+    Applications
+    Pictures
+    Music
+    """)
+    elif command == "pwd":
+        output.insert(tk.END, "/Users/Bony\n")
+
+    elif command == "reboot":
+        output.delete("1.0", tk.END)
+
+        output.insert(tk.END, "Rebooting BonyOS...\n")
+        root.update()
+
+        import time
+        time.sleep(1)
+
+        output.insert(tk.END, "Stopping services...\n")
+        root.update()
+        time.sleep(1)
+
+        output.insert(tk.END, "Starting kernel...\n")
+        root.update()
+        time.sleep(1)
+
+        output.insert(tk.END, "\nWelcome back to BonyOS.\n")
+
+    elif command == "clear":
+        output.delete("1.0", tk.END)
+
+    elif command == "exit":
+        root.destroy()
+
+    else:
+        output.insert(tk.END, "command not found\n")
+
+    output.see(tk.END)
+    entry.delete(0, tk.END)
+
+entry.bind("&ltReturn>", run_command)
+
+
+output.insert(
+    tk.END,
+r"""
+Starting BonyOS...
+Loading kernel...
+Initializing terminal...
+Connecting services...
+
+Welcome to BonyOS Terminal
+Type 'help' to begin.
+
+"""
+)
+
+root.mainloop()
+</pre>
+
+    </div>
+
+  </div>
+
+  <script>
+    function copyCode(){
+      const code = document.getElementById("code").innerText;
+
+      navigator.clipboard.writeText(code);
+
+      const button = document.querySelector(".copy-btn");
+
+      button.innerText = "Copied!";
+
+      setTimeout(() => {
+        button.innerText = "Copy Code";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
